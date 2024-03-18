@@ -1,0 +1,40 @@
+{
+  "alias": [
+    {
+      "key": 1,
+      "districtCode": "1111",
+      "alias": "2222",
+      "created": {
+        "date": "2024-02-15",
+        "time": "1:25:20",
+        "createdUser": "Lucas"
+      },
+      "edited": { "date": "2024-02-15", "time": "1:25:20" },
+      "actions": ["edit", "delete"]
+    },
+    {
+      "key": 2,
+      "districtCode": "123",
+      "alias": "1",
+      "created": {
+        "date": "2024-02-15",
+        "time": "5:25:20",
+        "createdUser": "Lucas"
+      },
+      "edited": { "date": "2024-02-15", "time": "5:25:20" },
+      "actions": ["edit", "delete"]
+    },
+    {
+      "key": 3,
+      "districtCode": "555",
+      "alias": "123",
+      "created": {
+        "date": "2024-02-15",
+        "time": "14:25:18",
+        "createdUser": "Lucas"
+      },
+      "edited": { "date": "2024-02-15", "time": "14:25:18" },
+      "actions": ["edit", "delete"]
+    }
+  ]
+}

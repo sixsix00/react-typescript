@@ -1,63 +1,23 @@
-import { useState } from 'react'
 import './App.css'
-import { Button, Tabs, Space } from 'antd'
-import TableList from './components/TableList'
+import { Button, Tabs, Table, Modal, Space, Input } from 'antd'
 import type { TabsProps } from 'antd';
-interface DataType {
-  key: number;
-  districtCode: string;
-  alias: string;
-  created: string;
-  edited: string;
-  actions: string[];
-}
-const datas: DataType[] = [
-  {
-      key: 1,
-      districtCode: "7777",
-      alias: "555",
-      created: "2024-02-15",
-      edited: "2024-02-15",
-      actions: ["edit","delete"],
-  },
-  {
-      key: 2,
-      districtCode: "7777",
-      alias: "555",
-      created: "2024-02-15",
-      edited: "2024-02-15",
-      actions: ["edit","delete"],
-  },
-  {
-      key: 3,
-      districtCode: "7777",
-      alias: "555",
-      created: "2024-02-15",
-      edited: "2024-02-15",
-      actions: ["edit","delete"],
-  }
-]
+import { v4 as uuidv4 } from 'uuid';
+import datex from 'datex.js';
+import {queryData} from "./data/useData"
+import aliasColumns from "./components/aliasColumns"
+import { useState, useEffect } from "react"
+
 
 function App() {
-  const [count, setCount] = useState(0)
+  const { dataSource, setDataSource }= queryData("alias")
+	const { cols } = aliasColumns();
+	const [isModalOpen, setIsModalOpen] = useState([false, false]);
 
-  const addValue = ()=>{
-    setCount(count + 1);
-  }
-
-  const resetValue = () => {
-    setCount(0);
-  }
-
-  const onChange = (key: string) => {
-    console.log(key);
-  };
-  
   const items: TabsProps['items'] = [
     {
       key: '1',
       label: 'Alias',
-      children: <TableList datas={datas}></TableList>,
+      children: <Table columns={cols} dataSource={dataSource}></Table>,
     },
     {
       key: '2',
@@ -66,15 +26,62 @@ function App() {
     },
   ];
 
+	const toggleModal = (idx: number, target: boolean) => {
+    setIsModalOpen((p) => {
+      p[idx] = target;
+      return [...p];
+    });
+  };
+
+	const [addObj, setAddObj] = useState({districtCode:"", alias:""});
+	const addChgData = (v) => {
+		console.log("~~~~")
+		setAddObj((prev)=> ({
+			...prev,
+			...v
+		}))
+	}
+
+	const addDataSource = () => {
+		setDataSource((prev)=> [
+			...prev,
+			{
+				key: uuidv4(),
+        districtCode: addObj.districtCode,
+        alias: addObj.alias,
+        created: {
+          date: datex(new Date()).format("YYYY/MM/DD"),
+          time: datex(new Date()).format("HH:mm:ss"),
+					createdUser: "Lucas"
+        },
+        edited: { "date": "2024-02-15", "time": "5:25:20" },
+        actions: ["edit", "delete"]
+			}
+		])
+
+		toggleModal(0, false)
+	}
+
+
   return (
     <>
-      <Button>新增資訊</Button>
-      <div className='flex'>
-        <div >{count}</div>
-        <Button onClick={addValue}>按我吧</Button>
-        <Button onClick={resetValue}>Reset</Button>
-      </div>
-      <Tabs centered={true} defaultActiveKey="1" items={items} onChange={onChange} />
+      <Button onClick={() => toggleModal(0, true)}>新增資訊</Button>
+			<Modal
+        title="新增資訊"
+        open={isModalOpen[0]}
+        onOk={() => addDataSource()}
+        onCancel={() => toggleModal(0, false)}
+				okText="新增"
+        cancelText="取消"
+      >
+        <Space direction="vertical">
+					District Code
+					<Input showCount maxLength={20} onChange={(e)=>addChgData({districtCode: e.target.value})} />
+					Alias
+					<Input showCount maxLength={20} onChange={(e)=>addChgData({alias: e.target.value})}/>
+				</Space>
+      </Modal>
+      <Tabs centered={true} defaultActiveKey="1" items={items} />
     </>
   )
 }
