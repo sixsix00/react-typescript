@@ -57,10 +57,10 @@ const aliasColumns = () => {
         title: 'Actions',
         dataIndex: 'actions',
         key: 'actions',
-        render: (_, { actions }) => (
+        render: (_, record) => (
           <Space size="middle">
 						{
-              actions.map((v) => {
+              record.actions.map((v) => {
                   if(v === 'delete') {
                       return <Button key="delete" shape="circle" icon={<DeleteOutlined />} />
                   }
