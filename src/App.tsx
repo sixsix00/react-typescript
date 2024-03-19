@@ -3,14 +3,16 @@ import { Button, Tabs, Table, Modal, Space, Input } from 'antd'
 import type { TabsProps } from 'antd';
 import { v4 as uuidv4 } from 'uuid';
 import datex from 'datex.js';
-import {queryData} from "./data/useData"
+import repo from "./data/useData"
 import aliasColumns from "./components/aliasColumns"
-import { useState, useEffect } from "react"
+import { useState } from "react"
 
 
 function App() {
-  const { dataSource, setDataSource }= queryData("alias")
-	const { cols } = aliasColumns();
+	const r = repo();
+  const { queryData, addData }= r;
+	const { dataSource } = queryData("alias")
+	const { cols } = aliasColumns(r);
 	const [isModalOpen, setIsModalOpen] = useState([false, false]);
 
   const items: TabsProps['items'] = [
@@ -33,9 +35,13 @@ function App() {
     });
   };
 
+
+
 	const [addObj, setAddObj] = useState({districtCode:"", alias:""});
+
+
+
 	const addChgData = (v) => {
-		console.log("~~~~")
 		setAddObj((prev)=> ({
 			...prev,
 			...v
@@ -43,21 +49,18 @@ function App() {
 	}
 
 	const addDataSource = () => {
-		setDataSource((prev)=> [
-			...prev,
-			{
-				key: uuidv4(),
-        districtCode: addObj.districtCode,
-        alias: addObj.alias,
-        created: {
-          date: datex(new Date()).format("YYYY/MM/DD"),
-          time: datex(new Date()).format("HH:mm:ss"),
-					createdUser: "Lucas"
-        },
-        edited: { "date": "2024-02-15", "time": "5:25:20" },
-        actions: ["edit", "delete"]
-			}
-		])
+		addData("alias", {
+			id: uuidv4(),
+			districtCode: addObj.districtCode,
+			alias: addObj.alias,
+			created: {
+				date: datex(new Date()).format("YYYY/MM/DD"),
+				time: datex(new Date()).format("HH:mm:ss"),
+				createdUser: "Lucas"
+			},
+			edited: { date: datex(new Date()).format("YYYY/MM/DD"), time: datex(new Date()).format("HH:mm:ss") },
+			actions: ["edit", "delete"]
+		})
 
 		toggleModal(0, false)
 	}

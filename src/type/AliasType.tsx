@@ -1,5 +1,5 @@
 type AliasType = {
-	key: number;
+	id: string;
   districtCode: string;
   alias: string;
   created: {date:string, time:string, createdUser: string};

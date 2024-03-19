@@ -1,9 +1,24 @@
 import type { TableProps } from 'antd';
-import { Space, Button } from 'antd';
+import { Space, Button, Input, Modal } from 'antd';
 import { EditOutlined, DeleteOutlined, CalendarOutlined, FieldTimeOutlined, UserOutlined } from '@ant-design/icons';
-
 import type { AliasType } from "../type/AliasType";
-const aliasColumns = () => {
+
+
+
+const aliasColumns = ({delData, putData}) => {
+
+	const editData = (url:string, id:string, record: AliasType) => {
+		Modal.warning({
+			title: '修改資料',
+			content: <Space direction="vertical">
+									District Code
+									<Input showCount maxLength={20} value={record.districtCode} disabled/>
+									Alias
+									<Input showCount maxLength={20} defaultValue={record.alias} onChange={(e)=> record.alias = e.target.value} />
+							</Space>,
+			onOk: ()=> putData(url, id, record)
+		});
+	}
   const cols: TableProps<AliasType>['columns'] = [
       {
         title: 'District Code',
@@ -62,10 +77,11 @@ const aliasColumns = () => {
 						{
               record.actions.map((v) => {
                   if(v === 'delete') {
-                      return <Button key="delete" shape="circle" icon={<DeleteOutlined />} />
+                      return <Button key={record.id} onClick={()=>delData("alias", record.id)} shape="circle" icon={<DeleteOutlined />} />
                   }
                   if(v === 'edit') {
-                      return <Button key="edit" shape="circle" icon={<EditOutlined />} />
+										// console.log(record);
+                      return <Button key={record.id} shape="circle" onClick={()=>editData("alias", record.id, record)} icon={<EditOutlined />} />
                   }
 
               })
