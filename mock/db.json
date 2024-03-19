@@ -3,15 +3,15 @@
     {
       "key": 1,
       "districtCode": "1111",
-      "alias": "2222",
+      "alias": "77",
       "created": {
         "date": "2024-02-15",
         "time": "1:25:20",
         "createdUser": "Lucas"
       },
       "edited": {
-        "date": "2024-02-15",
-        "time": "1:25:20"
+        "date": "2024/03/19",
+        "time": "23:31:14"
       },
       "actions": [
         "edit",
@@ -22,15 +22,15 @@
     {
       "key": 2,
       "districtCode": "123",
-      "alias": "1",
+      "alias": "66",
       "created": {
         "date": "2024-02-15",
         "time": "5:25:20",
         "createdUser": "Lucas"
       },
       "edited": {
-        "date": "2024-02-15",
-        "time": "5:25:20"
+        "date": "2024/03/19",
+        "time": "23:31:07"
       },
       "actions": [
         "edit",
@@ -41,15 +41,15 @@
     {
       "key": 3,
       "districtCode": "555",
-      "alias": "123",
+      "alias": "5555",
       "created": {
         "date": "2024-02-15",
         "time": "14:25:18",
         "createdUser": "Lucas"
       },
       "edited": {
-        "date": "2024-02-15",
-        "time": "14:25:18"
+        "date": "2024/03/19",
+        "time": "23:31:00"
       },
       "actions": [
         "edit",
@@ -58,18 +58,17 @@
       "id": "df53"
     },
     {
-      "id": "6d03",
-      "key": "13ccc071-0efa-460d-abaf-abe92c7caddb",
-      "districtCode": "222",
+      "id": "d09e2bc3-c252-40b9-b948-c9d522e2c0ac",
+      "districtCode": "5254535",
       "alias": "6666",
       "created": {
         "date": "2024/03/19",
-        "time": "14:56:58",
+        "time": "23:39:36",
         "createdUser": "Lucas"
       },
       "edited": {
         "date": "2024/03/19",
-        "time": "14:56:58"
+        "time": "23:39:40"
       },
       "actions": [
         "edit",

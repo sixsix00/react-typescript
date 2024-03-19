@@ -3,16 +3,18 @@ import { Button, Tabs, Table, Modal, Space, Input } from 'antd'
 import type { TabsProps } from 'antd';
 import { v4 as uuidv4 } from 'uuid';
 import datex from 'datex.js';
-import repo from "./data/useData"
 import aliasColumns from "./components/aliasColumns"
 import { useState } from "react"
+import init from "./hook/initDataSource"
+import repo from "./data/useData"
 
 
 function App() {
-	const r = repo();
-  const { queryData, addData }= r;
-	const { dataSource } = queryData("alias")
-	const { cols } = aliasColumns(r);
+	
+	const { dataSource, setDataSource } = init("alias")
+	const repoAddEdiDel = repo(setDataSource)
+	const { addData } = repoAddEdiDel
+	const { cols } = aliasColumns(repoAddEdiDel);
 	const [isModalOpen, setIsModalOpen] = useState([false, false]);
 
   const items: TabsProps['items'] = [

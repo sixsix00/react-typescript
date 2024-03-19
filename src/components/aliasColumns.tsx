@@ -2,7 +2,7 @@ import type { TableProps } from 'antd';
 import { Space, Button, Input, Modal } from 'antd';
 import { EditOutlined, DeleteOutlined, CalendarOutlined, FieldTimeOutlined, UserOutlined } from '@ant-design/icons';
 import type { AliasType } from "../type/AliasType";
-
+import datex from 'datex.js';
 
 
 const aliasColumns = ({delData, putData}) => {
@@ -14,7 +14,12 @@ const aliasColumns = ({delData, putData}) => {
 									District Code
 									<Input showCount maxLength={20} value={record.districtCode} disabled/>
 									Alias
-									<Input showCount maxLength={20} defaultValue={record.alias} onChange={(e)=> record.alias = e.target.value} />
+									<Input showCount maxLength={20} defaultValue={record.alias} onChange={(e)=> {
+										record.alias = e.target.value
+										record.edited.date = datex(new Date()).format("YYYY/MM/DD")
+										record.edited.time = datex(new Date()).format("HH:mm:ss")
+
+										}} />
 							</Space>,
 			onOk: ()=> putData(url, id, record)
 		});
