@@ -1,21 +1,24 @@
 import axios from "axios"
 
-const proxyUrl = "/api/"
+const server = axios.create({
+	baseURL: import.meta.env.VITE_BASE_API,
+	timeout: 80000
+});
 
 const get = (url) => {
-	return axios.get(proxyUrl + url);
+	return server.get(url);
 }
 
 const post = (url, data) => {
-	return axios.post(proxyUrl + url, data);
+	return server.post(url, data);
 }
 
 const put = (url, id, data) => {
-	return axios.put(proxyUrl + url + "/" + id, data);
+	return server.put(url + "/" + id, data);
 }
 
 const del = (url, id) => {
-	return axios.delete(proxyUrl + url + "/" + id);
+	return server.delete(url + "/" + id);
 }
 
 export { get, post, put, del }
